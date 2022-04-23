@@ -10,7 +10,7 @@ using SchoolWebAPI.Model;
 namespace SchoolWebAPI.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20220423001023_Init")]
+    [Migration("20220423011509_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

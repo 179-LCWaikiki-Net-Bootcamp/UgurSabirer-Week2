@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SchoolWebAPI.Mappings
+namespace SchoolWebAPI.Mapping
 {
     public class TeacherProfile : Profile
     {
@@ -13,7 +13,7 @@ namespace SchoolWebAPI.Mappings
         {
             CreateMap<TeacherQuery, Teacher>();
 
-            CreateMap<Teacher, TeacherQuery>();
+            CreateMap<Teacher, Teacher>();        
         }
     }
 }

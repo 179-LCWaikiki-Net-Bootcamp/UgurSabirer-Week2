@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +15,12 @@ namespace SchoolWebAPI.Controllers
     public class TeachersController : ControllerBase
     {
         private readonly SchoolContext _context;
+        private readonly IMapper _mapper;
 
-        public TeachersController(SchoolContext context)
+        public TeachersController(SchoolContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Teachers
@@ -45,11 +48,13 @@ namespace SchoolWebAPI.Controllers
         [HttpGet("Search")]
         public async Task<ActionResult<IEnumerable<Teacher>>> Search([FromQuery] TeacherQuery search)
         {
+            var searchTeacher = _mapper.Map<Teacher>(search);
+
             IQueryable<Teacher> query = _context.Teachers;
 
             if (!string.IsNullOrEmpty(search.FullName))
             {
-                query = query.Where(e => e.FullName.Contains(search.FullName));
+                query = query.Where(e => e.FullName.Contains(searchTeacher.FullName));
             }
 
             return await query.ToListAsync();

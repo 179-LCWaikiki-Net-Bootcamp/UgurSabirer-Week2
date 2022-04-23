@@ -48,11 +48,13 @@ namespace SchoolWebAPI.Controllers
         [HttpGet("Search")]
         public async Task<ActionResult<IEnumerable<Student>>> Search([FromQuery] StudentQuery search)
         {
+            var searchStudent = _mapper.Map<Student>(search);
+            
             IQueryable<Student> query = _context.Students;
 
             if (!string.IsNullOrEmpty(search.FullName))
             {
-                query = query.Where(e => e.FullName.Contains(search.FullName));
+                query = query.Where(e => e.FullName.Contains(searchStudent.FullName));
             }
 
             return await query.ToListAsync();
